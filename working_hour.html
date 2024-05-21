@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            加班時間計算機
+        </title>
+    </head>
+    <body>
+        <input class="hour" placeholder="輸入幾點">
+        <input class="min" placeholder="輸入幾分">
+        <button onclick="
+            let Hour = document.querySelector('.hour').value;
+            let Min = document.querySelector('.min').value;
+            Hour = Number(Hour);
+            Min = Number(Min);
+            cal(Hour, Min);
+            const buttonElement = document.querySelector('button');
+            if(buttonElement.innerHTML==='計算'){
+                buttonElement.innerHTML = '重新計算';
+            }
+        ">計算</button>
+
+        <p class="normalTime">加班時間計算機</p>
+        <p class="addTime1"></p>
+        <p class="addTime2"></p>
+        <p class="addTime3"></p>
+        <p class="addTime4"></p>
+        <p class="addTime5"></p>
+        <p class="addTime6"></p>
+
+
+        <script>
+            const Time = ['addTime1', 'addTime2', 'addTime3', 'addTime4', 'addTime5', 'addTime6'];
+
+            function cal(hour, min){
+                let n = 0;
+                if(min>=30) n = 1;
+                document.querySelector(".normalTime").innerHTML = `
+                    上班時間   : ${hour}點${min}分<br>
+                    下班時間   : ${hour+9}點${min}分<br>
+                    開始算加班 : ${hour+9+n}點${(min+30)%60}分<br>
+                `;
+                for(let i=1; i<Time.length; i++){
+                    document.querySelector(`.${Time[i]}`).innerHTML = `
+                        ${hour+9+i}點${min%60}分 --- 加班${i-0.5}小時<br>
+                        ${hour+9+i+n}點${(min+30)%60}分 --- 加班${i}小時<br>
+                    `;
+                }
+            }
+        </script>
+    </body>
+</html>
